@@ -16,21 +16,20 @@ $(document).ready(function () {
     
     function verifyToken(tokenValue)
     {
-    	$.getJSON('http://localhost:8080/pwi-app-ws/users/email-verification', { token: tokenValue }, function(response) {
-    		
-    		if (response["operationResult"] === "SUCCESS")
+        $.get('http://localhost:8080/pwi-app-ws/users/email-verification', {token: tokenValue})
+        .done(function (response) {
+        	
+            if (response["operationResult"] === "SUCCESS")
             {
                 $("#not-successful-result").attr( "style", "display: none !important;" ); 
                 $("#successful-result").attr( "style", "display: block !important;" ); 
                 
-                
             } else {
                 $("#successful-result").attr( "style", "display: none !important;" ); 
-                $("#not-successful-result").attr( "style", "display: block !important;" );
-                console.log(response["operationResult"]);
-                document.getElementById("demo").innerHTML =response;
+                $("#not-successful-result").attr( "style", "display: block !important;" ); 
             }
-    	});
+
+        });
     }
     
 });
@@ -39,7 +38,6 @@ $(document).ready(function () {
 <body>
         <div id="successful-result" style="display:none">Successful verification</div>
         <div id="not-successful-result" style="display:none">Verification link has expired</div>
-        <p id="demo">www</p>
         <div></div>
 </body>
 </html>
